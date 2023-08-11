@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using tetris_api;
@@ -11,9 +12,11 @@ using tetris_api;
 namespace tetris_api.Migrations
 {
     [DbContext(typeof(UserContext))]
-    partial class UserContextModelSnapshot : ModelSnapshot
+    [Migration("20230810054009_UseGuid")]
+    partial class UseGuid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,15 +42,15 @@ namespace tetris_api.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("score_id");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("ThisUserId")
                         .HasColumnType("integer")
-                        .HasColumnName("user_id");
+                        .HasColumnName("this_user_id");
 
                     b.HasKey("Id")
                         .HasName("pk_scores");
 
-                    b.HasIndex("UserId")
-                        .HasDatabaseName("ix_scores_user_id");
+                    b.HasIndex("ThisUserId")
+                        .HasDatabaseName("ix_scores_this_user_id");
 
                     b.ToTable("scores", (string)null);
                 });
@@ -83,10 +86,10 @@ namespace tetris_api.Migrations
                 {
                     b.HasOne("tetris_api.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("ThisUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_scores_users_user_id");
+                        .HasConstraintName("fk_scores_users_this_user_id");
 
                     b.Navigation("User");
                 });

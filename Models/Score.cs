@@ -6,7 +6,7 @@ public class Score
 {
     public int Id { get; set; }
 
-    public int ScoreId { get; set; }
+    public Guid ScoreId { get; set; }
 
     public int UserId { get; set; }
     [ForeignKey("UserId")]

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Z2MpeqVkH26heDJ30QFJdcMTV2EqHomDvkuqUze2JxQKnXqT0pyxWOzTxl0LXmrOP145zkQjvlZyyLfdvNL8tA==",
+  "dgSpecHash": "H9lgUBjemsyvCGhwS+vAdSRpx3Ux4dTHWQzR7G6QK+J/R+XhdLrgiE5uNd7Pdon8M7bRYaHnkQIrhONvP8mDQA==",
   "success": true,
   "projectFilePath": "/home/kiipuri/repos/typescript/reactris-backend/tetris-api/tetris-api.csproj",
   "expectedPackageFiles": [
@@ -29,6 +29,7 @@
     "/home/kiipuri/.cache/NuGetPackages/microsoft.extensions.primitives/7.0.0/microsoft.extensions.primitives.7.0.0.nupkg.sha512",
     "/home/kiipuri/.cache/NuGetPackages/microsoft.openapi/1.4.3/microsoft.openapi.1.4.3.nupkg.sha512",
     "/home/kiipuri/.cache/NuGetPackages/mono.texttemplating/2.2.1/mono.texttemplating.2.2.1.nupkg.sha512",
+    "/home/kiipuri/.cache/NuGetPackages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512",
     "/home/kiipuri/.cache/NuGetPackages/npgsql/7.0.4/npgsql.7.0.4.nupkg.sha512",
     "/home/kiipuri/.cache/NuGetPackages/npgsql.entityframeworkcore.postgresql/7.0.4/npgsql.entityframeworkcore.postgresql.7.0.4.nupkg.sha512",
     "/home/kiipuri/.cache/NuGetPackages/sqlitepclraw.bundle_e_sqlite3/2.1.4/sqlitepclraw.bundle_e_sqlite3.2.1.4.nupkg.sha512",

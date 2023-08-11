@@ -71,3 +71,4 @@
 /home/kiipuri/repos/typescript/reactris-backend/tetris-api/bin/Debug/net7.0/Npgsql.dll
 /home/kiipuri/repos/typescript/reactris-backend/tetris-api/bin/Debug/net7.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
 /home/kiipuri/repos/typescript/reactris-backend/tetris-api/bin/Debug/net7.0/EFCore.NamingConventions.dll
+/home/kiipuri/repos/typescript/reactris-backend/tetris-api/bin/Debug/net7.0/Newtonsoft.Json.dll

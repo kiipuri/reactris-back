@@ -1,7 +1,12 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WebApi.Services;
 
 namespace tetris_api.Controllers;
 
+[Authorize]
 [Route("[controller]")]
 public class ScoreController : ControllerBase
 {
@@ -9,24 +14,35 @@ public class ScoreController : ControllerBase
 
     public ScoreController(UserContext context) { this.context = context; }
 
+    [AllowAnonymous]
     [HttpGet]
     public List<Score> Get()
     {
-        var scores = this.context.Scores.ToList();
+        var scores = this.context.Scores.Include(s => s.User).ToList();
         return scores;
     }
 
-    [Route("User/{UserId}")]
+    [AllowAnonymous]
+    [Route("User/{userIdStr}")]
     [HttpGet]
-    public List<Score> Get(int UserId)
+    public List<Score> Get(string userIdStr)
     {
-        var scores = this.context.Scores.Where(s => s.UserId == UserId).ToList();
+        var userId = Guid.Parse(userIdStr);
+        int userFK = this.context.Users.Single(u => u.UserId == userId).Id;
+        var scores =
+            // this.context.Scores.Where(s => s.ThisUserId == userId).ToList();
+            this.context.Scores.Where(s => s.UserId == userFK).ToList();
         return scores;
     }
 
     [HttpPost]
     public IActionResult Post([FromBody] Score score)
     {
+        var userId = Int32.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+        score.UserId = this.context.Users.First(u => u.Id == userId).Id;
+        // score.ThisUserId = this.context.Users.First(u => u.Id == userId).UserId;
+        score.ScoreId = Guid.NewGuid();
+
         this.context.Scores.Add(score);
         this.context.SaveChanges();
         return Ok();
