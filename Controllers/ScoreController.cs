@@ -29,9 +29,7 @@ public class ScoreController : ControllerBase
     {
         var userId = Guid.Parse(userIdStr);
         int userFK = this.context.Users.Single(u => u.UserId == userId).Id;
-        var scores =
-            // this.context.Scores.Where(s => s.ThisUserId == userId).ToList();
-            this.context.Scores.Where(s => s.UserId == userFK).ToList();
+        var scores = this.context.Scores.Where(s => s.UserId == userFK).ToList();
         return scores;
     }
 
@@ -40,11 +38,26 @@ public class ScoreController : ControllerBase
     {
         var userId = Int32.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
         score.UserId = this.context.Users.First(u => u.Id == userId).Id;
-        // score.ThisUserId = this.context.Users.First(u => u.Id == userId).UserId;
         score.ScoreId = Guid.NewGuid();
 
         this.context.Scores.Add(score);
         this.context.SaveChanges();
         return Ok();
+    }
+
+    [AllowAnonymous]
+    [Route("Highscores")]
+    [HttpGet]
+    public List<Score> Highscores()
+    {
+        var scores =
+            this.context.Scores.Include(s => s.User)
+                .GroupBy(s => s.UserId)
+                .Select(group =>
+                            group.OrderByDescending(s => s.PlayerScore).First())
+                .ToList()
+                .OrderByDescending(s => s.PlayerScore)
+                .ToList();
+        return scores;
     }
 }
