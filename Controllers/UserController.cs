@@ -49,4 +49,25 @@ public class UserController : ControllerBase
 
         return Ok(user);
     }
+
+    [AllowAnonymous]
+    [HttpPost("register")]
+    public IActionResult Register ([FromBody] UsernameAndPassword model)
+    {
+        if (model.Username == "" || model.HashedPassword == "")
+            return BadRequest(new { message = "Username and password required" });
+
+        if (this.context.Users.SingleOrDefault(u => u.Username == model.Username) != null)
+            return BadRequest(new { message = "Username taken" });
+
+        this.context.Users.Add(new User {
+            Username = model.Username,
+            HashedPassword = model.HashedPassword,
+            UserId = Guid.NewGuid(),
+        });
+
+        this.context.SaveChanges();
+
+        return Ok();
+    }
 }
