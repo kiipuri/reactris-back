@@ -61,6 +61,25 @@ internal class Program
 
         app.MapControllers();
 
+        using (var scope = app.Services.CreateScope())
+        {
+            for (var i = 0; i < 10; i++) {
+                try
+                {
+                    var db = scope.ServiceProvider.GetRequiredService<UserContext>();
+                    db.Database.Migrate();
+
+                    break;
+                }
+                catch (System.Exception)
+                {
+                    Console.WriteLine("Couldn't connect to database");
+                }
+
+                Thread.Sleep(1000);
+            }
+        }
+
         app.Run();
     }
 }

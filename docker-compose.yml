@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+  db:
+    image: postgres:alpine
+    container_name: reactris-postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=reactris
+
+  backend:
+    container_name: reactris-backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5267:80
+    depends_on:
+      - db
