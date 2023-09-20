@@ -15,7 +15,7 @@ Dependencies:
 - ASP.NET Core 7.0
 
 1. Update server to localhost in appsettings.json
-2. Run PostgreSQL
+2. Run PostgreSQL and create database and user as defined in appsettings.json
 3. Install Entity Framework Tools
 ```
 dotnet tool install --global dotnet-ef
